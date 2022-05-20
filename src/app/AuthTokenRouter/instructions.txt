@@ -1,0 +1,32 @@
+<h2 align="center">Auth Token React Router</h2>
+
+<br>
+
+## Wymagana wiedza
+
+- Typescript, Angular
+
+## Technologie potrzebne do zadania
+
+- Typescript, Angular, RouterModule
+
+## Cele główne
+
+- [ ] Stwórz 3 komponenty(nie przejmuj się wizualną częścią):
+
+* Podepnij komponenty pod 3 routy: `/`, `/login`, `/dashboard`
+* jeśli w urlu jest przekazywane query `?token=f3823903b2dd6e35243b1bbe5a14f651`, to użytkownik może wejść na wszystkie routy z wyjątkiem login(zostaje przekierowany na `/dashboard`),
+* jeśli w GET lub podczas routingu w urlu jest przekazywane query `?token=1c9de95d445fd0824b3bcf1def5f7bfb`, lub nie ma argumentów to użytkownik może wejść na `/` oraz `/login`. Route `dashboard` przekierowuje na `/login`
+
+## Przydatne linki
+
+- Dokumentacja Routingu - https://angular.io/guide/router
+- Dokumentacja guard'u CanActivate - https://angular.io/api/router/CanActivate
+
+## Początek kodu
+
+```javascript
+// tokeny do autoryzacji
+const goodBearerToken = "f3823903b2dd6e35243b1bbe5a14f651";
+const badBearerToken = "1c9de95d445fd0824b3bcf1def5f7bfb";
+```

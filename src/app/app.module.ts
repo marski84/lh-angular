@@ -10,6 +10,8 @@ import { NavigationComponent } from './AuthTokenRouter/navigation/navigation.com
 import { RatingComponent } from './RatingStars/rating/rating.component';
 import { RatingsListComponent } from './RatingStars/ratings-list/ratings-list.component';
 import { AverageScoreComponent } from './RatingStars/average-score/average-score.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StarRatingModule } from 'angular-star-rating';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { AverageScoreComponent } from './RatingStars/average-score/average-score
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    StarRatingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

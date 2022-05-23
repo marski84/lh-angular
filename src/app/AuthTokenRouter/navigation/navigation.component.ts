@@ -17,21 +17,21 @@ export class NavigationComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.validToken = this.authService.goodBearerToken;
-    this.invalidToken = this.authService.badBearerToken;
+    this.validToken = this.authService.validBearerToken;
+    this.invalidToken = this.authService.invalidBearerToken;
   }
 
-
+  // ktorę z rozwiązan?
   public handleRedirectWithValidToken(): void {
     this.router.navigate(['/authToken/login'], {
-      queryParams: { token: this.authService.goodBearerToken }
+      queryParams: { token: this.authService.validBearerToken }
     }
     );
   };
 
   public handleRedirectWithInvalidToken(): void {
     this.router.navigate(['/authToken/login'], {
-      queryParams: { token: this.authService.badBearerToken }
+      queryParams: { token: this.authService.invalidBearerToken }
     }
     );
   };

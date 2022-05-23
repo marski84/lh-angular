@@ -1,6 +1,10 @@
 <p>navigation works!</p>
 <button routerLink="/authToken/home" routerLinkActive="active">Home</button>
 <button routerLink="/authToken/dashboard" routerLinkActive="active">Dashboard</button>
+
+<button routerLink="/authToken/dashboard" [queryParams]="{'token': invalidToken}" routerLinkActive="active">Dashboard
+  with invalid token</button>
+
 <button routerLink="/authToken//login" [queryParams]="{'token': validToken}" routerLinkActive="active">Login with
   valid token</button>
 <button routerLink="/authToken//login" [queryParams]="{'token': invalidToken}" routerLinkActive="active">Login with

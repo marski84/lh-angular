@@ -4,14 +4,17 @@ import { NavigationComponent } from './AuthTokenRouter/navigation/navigation.com
 import { HomeComponent } from './AuthTokenRouter/home/home.component';
 import { DashboardComponent } from './AuthTokenRouter/dashboard/dashboard.component';
 import { LoginComponent } from './AuthTokenRouter/login/login.component';
+import { AuthService } from './AuthTokenRouter/auth.service';
+
 
 const routes: Routes = [
   {
     path: 'authToken', component: NavigationComponent,
     children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'login', component: LoginComponent }
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthService] },
+      { path: 'login', component: LoginComponent, canActivate: [AuthService] }
     ]
   }
 ];

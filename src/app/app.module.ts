@@ -8,6 +8,7 @@ import { DashboardComponent } from './AuthTokenRouter/dashboard/dashboard.compon
 import { LoginComponent } from './AuthTokenRouter/login/login.component';
 import { NavigationComponent } from './AuthTokenRouter/navigation/navigation.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,6 +16,7 @@ import { NavigationComponent } from './AuthTokenRouter/navigation/navigation.com
     DashboardComponent,
     LoginComponent,
     NavigationComponent,
+
   ],
   imports: [
     BrowserModule,

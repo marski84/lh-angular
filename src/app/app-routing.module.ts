@@ -5,9 +5,11 @@ import { HomeComponent } from './AuthTokenRouter/home/home.component';
 import { DashboardComponent } from './AuthTokenRouter/dashboard/dashboard.component';
 import { LoginComponent } from './AuthTokenRouter/login/login.component';
 import { AuthService } from './AuthTokenRouter/auth.service';
+import { RatingsListComponent } from './RatingStars/ratings-list/ratings-list.component';
 
 
 const routes: Routes = [
+  { path: 'ratingStars', component: RatingsListComponent },
   {
     path: 'authToken', component: NavigationComponent,
     children: [

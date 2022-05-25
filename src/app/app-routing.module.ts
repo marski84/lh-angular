@@ -6,10 +6,14 @@ import { DashboardComponent } from './AuthTokenRouter/dashboard/dashboard.compon
 import { LoginComponent } from './AuthTokenRouter/login/login.component';
 import { AuthService } from './AuthTokenRouter/auth.service';
 import { RatingsListComponent } from './RatingStars/ratings-list/ratings-list.component';
+import { LoginFormComponent } from './LoginForm/login-form/login-form.component';
 
 
 const routes: Routes = [
   { path: 'ratingStars', component: RatingsListComponent },
+  {
+    path: 'loginform', component: LoginFormComponent
+  },
   {
     path: 'authToken', component: NavigationComponent,
     children: [

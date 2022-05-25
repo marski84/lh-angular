@@ -1,0 +1,36 @@
+<form [formGroup]="loginForm" class="login-form" (ngSubmit)="handleSubmit(loginForm)">
+  <div formGroupName="loginData">
+
+    <div class="form-group mb-2">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
+
+      <div class=" alert-danger w-50" *ngIf="emailInputField!.touched && emailInputField!.invalid">
+        Adres email wymagany do zalogowania!
+      </div>
+    </div>
+
+    <div class=" form-group mb-2">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+
+      <div class=" alert-danger w-50" *ngIf="passwordInputField!.touched && passwordInputField!.invalid">
+        Wprowadź hasło!
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="form-check mb-4">
+    <input type="checkbox" class="form-check-input" id="remember-me">
+    <label class="form-check-label" for="remember-me" formControlName="rememberMe">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
+
+
+</form>
+
+form State: {{loginForm.status}}
+<br>
+<!-- {{loginForm | json}} -->

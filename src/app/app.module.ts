@@ -12,7 +12,8 @@ import { RatingsListComponent } from './RatingStars/ratings-list/ratings-list.co
 import { AverageScoreComponent } from './RatingStars/average-score/average-score.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
-
+import { LoginFormComponent } from './LoginForm/login-form/login-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,13 +25,15 @@ import { StarRatingModule } from 'angular-star-rating';
     RatingComponent,
     RatingsListComponent,
     AverageScoreComponent,
+    LoginFormComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

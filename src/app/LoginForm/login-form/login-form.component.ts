@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { of, ReplaySubject } from 'rxjs';
 import { LoginService } from '../login.service';
 
 
@@ -12,10 +13,15 @@ export class LoginFormComponent implements OnInit {
 
 
   loginForm: FormGroup;
+  isChecked = false;
+
 
 
   constructor(private loginAuth: LoginService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private cd: ChangeDetectorRef) {
+
+
     this.loginForm = formBuilder.group(
       {
         loginData: formBuilder.group(
@@ -24,14 +30,30 @@ export class LoginFormComponent implements OnInit {
             password: ['', [Validators.required, Validators.minLength(3)]]
           }
         ),
-        rememberMe: ['']
+        rememberMe: ['',]
       },
 
     )
-  }
+  };
 
   ngOnInit() {
-    console.log(this.loginForm.get('loginData')?.get('email'));
+    const login = window.localStorage.getItem('login');
+    console.log(login);
+    if (login) {
+      this.emailInputField?.patchValue(login);
+    };
+
+    const checkBoxState = window.localStorage.getItem('isChecked');
+    console.log(typeof (checkBoxState));
+
+
+    if (checkBoxState === 'true') {
+      this.rememberMeField!.patchValue(true);
+    }
+    else {
+      this.rememberMeField!.patchValue(false);
+    }
+
 
   }
 
@@ -43,9 +65,26 @@ export class LoginFormComponent implements OnInit {
     return this.loginForm.get(['loginData', 'password']);
   };
 
-  handleSubmit(event: any) {
-    console.log(event);
-
+  get rememberMeField() {
+    return this.loginForm.get('rememberMe');
   }
 
+  handleSubmit(event: any) {
+    console.log(event);
+  }
+
+  saveLoginData() {
+    if (!this.isChecked) {
+      this.loginForm.get('rememberMe')?.patchValue(true);
+      this.isChecked = true;
+      window.localStorage.setItem('login', this.emailInputField!.value);
+      window.localStorage.setItem('isChecked', String(this.isChecked));
+    }
+    else {
+      this.loginForm.get('rememberMe')?.patchValue(false);
+      this.isChecked = false;
+      window.localStorage.removeItem('login');
+      window.localStorage.removeItem('isChecked');
+    };
+  };
 }

@@ -1,36 +1,89 @@
-<form [formGroup]="loginForm" class="login-form" (ngSubmit)="handleSubmit(loginForm)">
-  <div formGroupName="loginData">
+<form
+    [formGroup]="loginForm"
+    class="login-form"
+    (ngSubmit)="handleSubmit(loginForm)"
+>
+    <div formGroupName="loginData">
 
-    <div class="form-group mb-2">
-      <label for="email">Email address</label>
-      <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
+        <div class="form-group mb-2">
+            <label for="email">Email address</label>
+            <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="Enter email"
+            >
 
-      <div class=" alert-danger w-50" *ngIf="emailInputField!.touched && emailInputField!.invalid">
-        Adres email wymagany do zalogowania!
-      </div>
+            <div
+                class=" alert-danger w-50"
+                *ngIf="emailInputField!.touched && emailInputField!.invalid"
+            >
+                Adres email wymagany do zalogowania!
+            </div>
+
+            <div
+                class=" alert-danger w-50"
+                *ngIf="emailInputField!.touched && emailInputField!.hasError('pattern') || emailInputField!.touched && emailInputField!.hasError('email')"
+            >
+                Nieprawidłwy format!
+            </div>
+
+        </div>
+
+        <div class=" form-group mb-2">
+            <label for="password">Password</label>
+            <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Password"
+                formControlName="password"
+            >
+
+            <div
+                class=" alert-danger w-50"
+                *ngIf="passwordInputField!.touched && passwordInputField!.hasError('required')"
+            >
+                Wprowadź hasło!
+            </div>
+
+            <div
+                class=" alert-danger w-50"
+                *ngIf="passwordInputField!.touched && passwordInputField!.hasError('minlength')"
+            >
+                Hasło jest zbyt krótkie!
+            </div>
+        </div>
     </div>
 
-    <div class=" form-group mb-2">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
-
-      <div class=" alert-danger w-50" *ngIf="passwordInputField!.touched && passwordInputField!.invalid">
-        Wprowadź hasło!
-      </div>
+    <div
+        *ngIf="emailInputField!.valid"
+        class="form-check mb-4"
+    >
+        <input
+            type="checkbox"
+            class="form-check-input"
+            id="remember-me"
+            (input)="saveLoginData()"
+            formControlName="rememberMe"
+        >
+        <label
+            class="form-check-label"
+            for="remember-me"
+        >
+            Remember me!
+        </label>
     </div>
-  </div>
-
-
-
-  <div class="form-check mb-4">
-    <input type="checkbox" class="form-check-input" id="remember-me">
-    <label class="form-check-label" for="remember-me" formControlName="rememberMe">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
-
+    <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="loginForm.invalid"
+    >
+        Submit
+    </button>
 
 </form>
-
 form State: {{loginForm.status}}
 <br>
 <!-- {{loginForm | json}} -->

@@ -7,6 +7,7 @@ import { LoginComponent } from './AuthTokenRouter/login/login.component';
 import { AuthService } from './AuthTokenRouter/auth.service';
 import { RatingsListComponent } from './RatingStars/ratings-list/ratings-list.component';
 import { LoginFormComponent } from './LoginForm/login-form/login-form.component';
+import { LoginDashboardComponent } from './LoginForm/login-dashboard/login-dashboard.component';
 
 
 const routes: Routes = [
@@ -14,13 +15,16 @@ const routes: Routes = [
   {
     path: 'loginform', component: LoginFormComponent
   },
+  { path: 'logindashboard', component: LoginDashboardComponent },
   {
     path: 'authToken', component: NavigationComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthService] },
-      { path: 'login', component: LoginComponent, canActivate: [AuthService] }
+      {
+        path: 'login', component: LoginComponent, canActivate: [AuthService]
+      }
     ]
   }
 ];

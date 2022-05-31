@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
 import { LoginFormComponent } from './LoginForm/login-form/login-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginDashboardComponent } from './LoginForm/login-dashboard/login-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RatingComponent,
     RatingsListComponent,
     AverageScoreComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    LoginDashboardComponent
 
   ],
   imports: [

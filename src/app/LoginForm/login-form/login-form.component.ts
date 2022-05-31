@@ -3,6 +3,11 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { of, ReplaySubject } from 'rxjs';
 import { LoginService } from '../login.service';
 
+export interface LoginData {
+  email: string,
+  password: string
+}
+
 
 @Component({
   selector: 'app-login-form',
@@ -14,12 +19,13 @@ export class LoginFormComponent implements OnInit {
 
   loginForm: FormGroup;
   isChecked = false;
+  invalidCredentials = false;
 
 
 
-  constructor(private loginAuth: LoginService,
+  constructor(public loginAuth: LoginService,
     private formBuilder: FormBuilder,
-    private cd: ChangeDetectorRef) {
+  ) {
 
 
     this.loginForm = formBuilder.group(
@@ -67,11 +73,13 @@ export class LoginFormComponent implements OnInit {
 
   get rememberMeField() {
     return this.loginForm.get('rememberMe');
-  }
+  };
 
-  handleSubmit(event: any) {
-    console.log(event);
-  }
+  handleSubmit(loginData: LoginData) {
+    if (loginData) {
+      this.loginAuth.onFormSubmit(loginData);
+    };
+  };
 
   saveLoginData() {
     if (!this.isChecked) {
@@ -87,4 +95,10 @@ export class LoginFormComponent implements OnInit {
       window.localStorage.removeItem('isChecked');
     };
   };
+
+  test() {
+    this.loginAuth.onValidCredentials();
+  }
+
+
 }

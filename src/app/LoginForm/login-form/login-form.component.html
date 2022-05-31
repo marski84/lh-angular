@@ -1,7 +1,7 @@
 <form
     [formGroup]="loginForm"
     class="login-form"
-    (ngSubmit)="handleSubmit(loginForm)"
+    (ngSubmit)="handleSubmit(loginForm.value.loginData)"
 >
     <div formGroupName="loginData">
 
@@ -83,7 +83,13 @@
         Submit
     </button>
 
+    <div
+        class="alert-danger alert w-50"
+        *ngIf="loginAuth.invalidCredentials"
+    >
+        Invalid credentials- try agian!
+    </div>
+
 </form>
 form State: {{loginForm.status}}
 <br>
-<!-- {{loginForm | json}} -->

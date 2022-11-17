@@ -1,0 +1,33 @@
+<!-- <div class="container">
+    <div>{{productData.title}}</div>
+    <div>
+        {{productData.description | descriptionFormatter}}
+    </div>
+    <div>{{productData.price}}</div>
+</div> -->
+
+<mat-card class="product-card">
+    <mat-card-header>
+        <mat-card-title>
+            {{productData.title |  TruncateTextPipe: 20}}
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div>
+            {{productData.description | TruncateTextPipe: 20}}
+        </div>
+        <div>
+            {{productData.price | currency: 'PLN' :'symbol':'4.2-2'}}
+        </div>
+
+    </mat-card-content>
+    <mat-card-actions align="start">
+        <button
+            mat-button
+            (click)="addProduct()"
+        >
+            Add to Cart
+        </button>
+
+    </mat-card-actions>
+</mat-card>

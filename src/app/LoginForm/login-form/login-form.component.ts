@@ -1,12 +1,10 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { of, ReplaySubject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../login.service';
+import { Subject } from 'rxjs/internal/Subject';
+import { Router } from '@angular/router';
 
-export interface LoginData {
-  email: string,
-  password: string
-}
+
 
 
 @Component({
@@ -16,18 +14,34 @@ export interface LoginData {
 })
 export class LoginFormComponent implements OnInit {
 
+  // https://www.youtube.com/watch?v=sj4ApeHzMQo
+
+  // iinna opcja na tworzneie formularza
+  loginForm2: FormGroup = new FormGroup({
+    email: new FormControl('', Validators.required)
+  });
+  //
+
 
   loginForm: FormGroup;
-  isChecked = false;
   invalidCredentials = false;
+  onDestroy$ = new Subject();
+  isValidAuthorization: boolean | undefined;
+
+  get emailCtrl() {
+    return this.loginForm.get(['loginData', 'email']) as FormControl;
+  };
+
+  get passwordCtrl() {
+    return this.loginForm.get(['loginData', 'password']) as FormControl;
+  };
+
+  get rememberMeCtrl() {
+    return this.loginForm.get('rememberMe') as FormControl;
+  };
 
 
-
-  constructor(public loginAuth: LoginService,
-    private formBuilder: FormBuilder,
-  ) {
-
-
+  constructor(public loginService: LoginService, private formBuilder: FormBuilder, private router: Router) {
     this.loginForm = formBuilder.group(
       {
         loginData: formBuilder.group(
@@ -36,69 +50,43 @@ export class LoginFormComponent implements OnInit {
             password: ['', [Validators.required, Validators.minLength(3)]]
           }
         ),
-        rememberMe: ['',]
+        rememberMe: [false]
       },
-
-    )
+    );
   };
 
   ngOnInit() {
     const login = window.localStorage.getItem('login');
-    console.log(login);
     if (login) {
-      this.emailInputField?.patchValue(login);
-    };
-
-    const checkBoxState = window.localStorage.getItem('isChecked');
-    console.log(typeof (checkBoxState));
-
-
-    if (checkBoxState === 'true') {
-      this.rememberMeField!.patchValue(true);
-    }
-    else {
-      this.rememberMeField!.patchValue(false);
-    }
-
-
-  }
-
-  get emailInputField() {
-    return this.loginForm.get(['loginData', 'email']);
-  };
-
-  get passwordInputField() {
-    return this.loginForm.get(['loginData', 'password']);
-  };
-
-  get rememberMeField() {
-    return this.loginForm.get('rememberMe');
-  };
-
-  handleSubmit(loginData: LoginData) {
-    if (loginData) {
-      this.loginAuth.onFormSubmit(loginData);
+      this.emailCtrl.setValue(login);
+      this.rememberMeCtrl.setValue(window.localStorage.getItem('isChecked'))
     };
   };
 
   saveLoginData() {
-    if (!this.isChecked) {
-      this.loginForm.get('rememberMe')?.patchValue(true);
-      this.isChecked = true;
-      window.localStorage.setItem('login', this.emailInputField!.value);
-      window.localStorage.setItem('isChecked', String(this.isChecked));
-    }
-    else {
-      this.loginForm.get('rememberMe')?.patchValue(false);
-      this.isChecked = false;
-      window.localStorage.removeItem('login');
-      window.localStorage.removeItem('isChecked');
+    if (this.rememberMeCtrl.value === true) {
+      window.localStorage.setItem('login', this.emailCtrl.value);
+      window.localStorage.setItem('isChecked', this.rememberMeCtrl.value);
     };
   };
 
-  test() {
-    this.loginAuth.onValidCredentials();
-  }
+  handleSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+    // koniecznie zmienić nazwe na login + wyciągnac reakcje na poprawne logowanie/błąd do komponentu- ok
 
+    const isAuthorized = this.loginService.onLoginAttempt(this.loginForm.value.loginData);
 
-}
+    // this.loginService.onValidCredentials(passy); => dac na if'a
+    if (isAuthorized) {
+      this.router.navigate(['logindashboard']);
+      this.saveLoginData();
+    };
+  };
+
+  handleCheckBoxState() {
+    this.rememberMeCtrl.setValue(!this.rememberMeCtrl.value);
+  };
+
+};

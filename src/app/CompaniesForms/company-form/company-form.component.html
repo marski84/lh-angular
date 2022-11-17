@@ -1,0 +1,125 @@
+<h3>Add new company:</h3>
+<form [formGroup]="companyForm">
+
+    <table
+        class="example-full-width"
+        cellspacing="0"
+    >
+        <tbody>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Company name</mat-label>
+                        <input
+                            matInput
+                            [formControl]="companyNameCtrl"
+                        >
+                        <mat-error *ngIf="companyNameCtrl.touched && companyNameCtrl.hasError('required')">This field is required</mat-error>
+                    </mat-form-field>
+
+                </td>
+
+                <td>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Business Type</mat-label>
+                        <mat-select
+                            [formControl]="companyBusinessTypeFormCtrl"
+                            placeholder="Type of business"
+                        >
+                            <mat-option
+                                [value]="business.value"
+                                *ngFor="let business of typeOfBusinessSelectOptions"
+                            >
+                                {{business.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="companyBusinessTypeFormCtrl.touched && companyBusinessTypeFormCtrl.hasError('required')">This field is required</mat-error>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <mat-divider></mat-divider>
+
+    <div class="add-employee-form">
+        <ng-container formArrayName="companyEmployees">
+            <ng-container *ngFor="let lessonForm of companyEmployees.controls; let i = index">
+                <div
+                    class="employee-form-row"
+                    [formGroupName]="i"
+                >
+                    <mat-form-field appearance="fill">
+                        <mat-label>Name</mat-label>
+
+                        <input
+                            matInput
+                            formControlName="firstName"
+                            placeholder="Employee firstname..."
+                        >
+                        <!-- <mat-error *ngIf="companyEmployeesNameCtrl.touched && companyEmployeesNameCtrl.hasError('required')">This field is required</mat-error> -->
+
+                    </mat-form-field>
+                    <mat-divider></mat-divider>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Lastname</mat-label>
+                        <input
+                            matInput
+                            formControlName="lastName"
+                            placeholder="Employee lastname..."
+                        >
+
+                    </mat-form-field>
+                    <mat-divider></mat-divider>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Age</mat-label>
+                        <input
+                            matInput
+                            formControlName="employeeAge"
+                            placeholder="Employee age..."
+                        >
+                    </mat-form-field>
+
+                    <mat-icon
+                        *ngIf="i!==0"
+                        class="delete-btn"
+                        (click)="deleteEmployeeForm(i)"
+                    >
+                        delete
+                    </mat-icon>
+                </div>
+
+                <mat-error *ngIf="companyEmployeesNameCtrl(i).touched && companyEmployeesNameCtrl(i).invalid">All Fields are requiered</mat-error>
+
+            </ng-container>
+
+        </ng-container>
+
+        <button
+            mat-mini-fab
+            (click)="addEmployeeForm()"
+        >
+            <mat-icon class="add-employee-btn">add</mat-icon>
+        </button>
+
+        <button
+            *ngIf="isEdit"
+            mat-mini-fab
+            (click)="editCompanyData()"
+        >
+            Edit Data
+            <mat-icon class="add-employee-btn">edit</mat-icon>
+        </button>
+
+    </div>
+    <!-- onSUbmit przypnij do forma przycisk tylko do submitu tzn. type=submit -->
+    <!-- połączył guzik edit i save -->
+    <button
+        *ngIf="!isEdit"
+        mat-button
+        (click)="onSubmit(companyForm.value)"
+    >
+        Submit
+    </button>
+</form>

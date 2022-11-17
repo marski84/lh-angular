@@ -28,17 +28,6 @@ export class RatingComponent implements OnInit {
   constructor() {
   }
 
-  getFormattedComment(content: string): string {
-    const contentLenght = content.length;
-    const inputContent = content;
-    if (contentLenght > 120) {
-      inputContent.slice(0, 120);
-    }
-    return inputContent;
-  }
-
-
-
   ngOnInit(): void {
     const { recordId, name, score, content } = this.rating;
     this.ratingAuthor = name;
@@ -46,6 +35,14 @@ export class RatingComponent implements OnInit {
     this.comment = this.getFormattedComment(content);
   }
 
+  private getFormattedComment(content: string): string {
+    const contentLenght = content.length;
+    const inputContent = content;
+    if (contentLenght > 120) {
+      inputContent.slice(0, 120);
+    }
+    return inputContent;
+  }
 }
 
 

@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>Dostępne produkty</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-list
+    role="list"
+    *ngFor="let product of products; let i = index"
+>
+    <mat-list-item role="cell">
+        <mat-card>
+            <app-product [productData]="product"></app-product>
+        </mat-card>
+        <mat-divider></mat-divider>
+
+        <!-- <button
+            mat-button
+            color="primary"
+            (click)="handleAddToCart(product)"
+        >
+            Add to Cart
+        </button> -->
+
+    </mat-list-item>
+</mat-list>

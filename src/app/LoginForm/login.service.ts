@@ -1,26 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginData } from './login-form/login-form.component';
-
+import { LoginData } from './LoginDataInterface';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
   invalidCredentials = false;
 
   constructor(private router: Router) { }
 
-  onFormSubmit(loginData: LoginData) {
+  onLoginAttempt(loginData: LoginData) {
     const { email, password } = loginData;
     const areCredentialsValid = this.checkCredentials(email, password);
 
     if (!areCredentialsValid) {
-      this.onInvalidCredentials();
+      return this.onInvalidCredentials();
     }
-    else {
-      this.onValidCredentials();
-    };
+    return this.onValidCredentials();
+
   };
 
   checkCredentials(email: string, password: string): boolean {
@@ -28,7 +25,7 @@ export class LoginService {
   }
 
   onValidCredentials() {
-    this.router.navigate(['logindashboard']);
+    return true;
   }
 
   onInvalidCredentials() {
@@ -39,5 +36,7 @@ export class LoginService {
         this.invalidCredentials = false;
       }, 3000
     );
+    return false;
   };
+
 };

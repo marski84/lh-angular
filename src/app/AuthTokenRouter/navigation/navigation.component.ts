@@ -13,27 +13,11 @@ export class NavigationComponent implements OnInit {
   invalidToken: string | undefined;
 
   constructor(
-    private authService: AuthService,
-    private router: Router) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.validToken = this.authService.validBearerToken;
     this.invalidToken = this.authService.invalidBearerToken;
-  }
-
-  // ktorę z rozwiązan?
-  public handleRedirectWithValidToken(): void {
-    this.router.navigate(['/authToken/login'], {
-      queryParams: { token: this.authService.validBearerToken }
-    }
-    );
-  };
-
-  public handleRedirectWithInvalidToken(): void {
-    this.router.navigate(['/authToken/login'], {
-      queryParams: { token: this.authService.invalidBearerToken }
-    }
-    );
   };
 
 }

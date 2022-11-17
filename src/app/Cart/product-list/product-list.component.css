@@ -1,0 +1,23 @@
+/* ::ng-deep .mat-toolbar{
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  min-width: 100%;
+}; */
+
+
+
+
+.mat-list-item {
+  margin-bottom: 15vh;
+  /* max-height: 25vh; */
+  /* max-width: 30vw; */
+}
+
+.mat-button {
+  margin-left: 15px;
+  min-width: 10vw;
+  background-color: rgba(133, 133, 238, 0.265);
+align-items: flex-end;}
+
+

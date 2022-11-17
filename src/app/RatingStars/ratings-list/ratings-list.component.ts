@@ -20,8 +20,13 @@ export class RatingsListComponent implements OnInit {
   ratingScoreArray: number[];
   ratingsListToView: Rating[] = [];
 
+  get ratingsToView() {
+    const mappedRatings = this.ratingsList.slice(0, 10);
+    return mappedRatings;
+  }
 
   constructor(private ratingService: RatingStarsService) {
+    // przerzucić do on init + zlikwidować jedną zmienną ratingScoreArray
     this.ratingsList = this.ratingService.getRatingsData();
     this.ratingScoreArray = this.ratingsList.map((ratingObject: Rating) => ratingObject.score);
   }
@@ -29,11 +34,6 @@ export class RatingsListComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.ratingsList);
     this.ratingsListToView = this.ratingsToView;
-  }
-
-  get ratingsToView() {
-    const mappedRatings = this.ratingsList.slice(0, 10);
-    return mappedRatings;
   }
 
 }

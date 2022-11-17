@@ -1,0 +1,54 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>Koszyk</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-card *ngFor="let product of  productsInCart; let i = index ">
+    <mat-card>
+        <mat-card-content>
+            <div>
+                {{i + 1}}. {{product.title}}
+                <app-badge [badgeContent]="product.quantity"></app-badge>
+                <!-- <mat-icon [matBadge]="product.quantity">notifications</mat-icon> -->
+            </div>
+            <div>{{product.price}}</div>
+
+        </mat-card-content>
+        <mat-card-actions align="start">
+            <div>
+                <button
+                    mat-button
+                    (click)="addAnotherProduct(product)"
+                >
+                    Dodaj
+                </button>
+            </div>
+            <div>
+                <button
+                    mat-button
+                    *ngIf="product.title"
+                    (click)="removeProduct(product)"
+                >
+                    Usuń
+                </button>
+
+            </div>
+        </mat-card-actions>
+        <mat-card-footer>Ilośc: {{product.quantity}}</mat-card-footer>
+    </mat-card>
+</mat-card>
+
+<button
+    mat-button
+    *ngIf="productsInCart.length >0"
+    (click)="removeAllProducts()"
+>
+    Usuń wszytkie
+</button>
+<div
+    class="cart-value layout-margin='50px"
+    *ngIf="productsInCart.length> 0"
+>
+    Cart Value: {{cartValue}}
+</div>

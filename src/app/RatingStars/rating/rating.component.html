@@ -1,7 +1,13 @@
 <div class="rating__container">
-  <p>{{ratingAuthor}}</p>
-  <p>{{comment}}</p>
+    <p>{{ratingAuthor}}</p>
+    <!-- pipe -->
+    <p>{{comment}}</p>
 
-  <star-rating [starType]="'svg'" [rating]="starRating" [readOnly]="true" [staticColor]="1"></star-rating>
+    <star-rating
+        [starType]="'svg'"
+        [rating]="starRating"
+        [readOnly]="true"
+        [staticColor]="1"
+    ></star-rating>
 
 </div>

@@ -1,0 +1,29 @@
+<!-- wydzieliłbym nawigacje od komponentu container -->
+<mat-toolbar>
+    <button
+        mat-button
+        routerLink="company/new"
+        routerLinkActive="active"
+    >
+        dodaj
+    </button>
+
+</mat-toolbar>
+
+<mat-toolbar *ngFor="let item of companies; let i = index">
+    <!-- zamiast (click) daj routing angularowy -->
+    <button
+        (click)="navigateToEditForm(i)"
+        mat-button
+    >
+        {{i}}. {{item | json}}
+    </button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+<!-- containerComponent
+    |dzieci (navigacja)
+    |dzieci (router)
+    |dzieci
+    |dzieci -->

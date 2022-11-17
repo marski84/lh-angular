@@ -6,6 +6,7 @@ import * as data from './data/data.json';
 })
 export class RatingStarsService {
 
+  // otypow
   ratingData: any
 
   constructor() {

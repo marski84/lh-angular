@@ -1,0 +1,7 @@
+<p>edit-company-component works!</p>
+{{companyData | json}}
+Edit Comapny data:
+<app-company-form
+    [companyDataInput]="companyData"
+    (editedCompanyData)="getEditedData($event)"
+></app-company-form>

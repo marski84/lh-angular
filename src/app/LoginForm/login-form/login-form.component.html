@@ -1,7 +1,7 @@
 <form
     [formGroup]="loginForm"
     class="login-form"
-    (ngSubmit)="handleSubmit(loginForm.value.loginData)"
+    (ngSubmit)="handleSubmit()"
 >
     <div formGroupName="loginData">
 
@@ -11,22 +11,22 @@
                 type="email"
                 class="form-control"
                 id="email"
-                formControlName="email"
+                [formControl]="emailCtrl"
                 placeholder="Enter email"
             >
 
             <div
                 class=" alert-danger w-50"
-                *ngIf="emailInputField!.touched && emailInputField!.invalid"
+                *ngIf="emailCtrl.touched && emailCtrl.invalid"
             >
-                Adres email wymagany do zalogowania!
+                Adres email wymagany do zalogowania
             </div>
 
             <div
                 class=" alert-danger w-50"
-                *ngIf="emailInputField!.touched && emailInputField!.hasError('pattern') || emailInputField!.touched && emailInputField!.hasError('email')"
+                *ngIf="emailCtrl.touched && emailCtrl.hasError('pattern') || emailCtrl.touched && emailCtrl.hasError('email')"
             >
-                Nieprawidłwy format!
+                Nieprawidłwy format
             </div>
 
         </div>
@@ -38,19 +38,19 @@
                 class="form-control"
                 id="password"
                 placeholder="Password"
-                formControlName="password"
+                [formControl]="passwordCtrl"
             >
 
             <div
                 class=" alert-danger w-50"
-                *ngIf="passwordInputField!.touched && passwordInputField!.hasError('required')"
+                *ngIf="passwordCtrl.touched && passwordCtrl.hasError('required')"
             >
                 Wprowadź hasło!
             </div>
 
             <div
                 class=" alert-danger w-50"
-                *ngIf="passwordInputField!.touched && passwordInputField!.hasError('minlength')"
+                *ngIf="passwordCtrl.touched && passwordCtrl.hasError('minlength')"
             >
                 Hasło jest zbyt krótkie!
             </div>
@@ -58,15 +58,15 @@
     </div>
 
     <div
-        *ngIf="emailInputField!.valid"
+        *ngIf="emailCtrl.valid"
         class="form-check mb-4"
     >
         <input
             type="checkbox"
             class="form-check-input"
             id="remember-me"
-            (input)="saveLoginData()"
-            formControlName="rememberMe"
+            [formControl]="rememberMeCtrl"
+            (click)="handleCheckBoxState()"
         >
         <label
             class="form-check-label"
@@ -85,7 +85,7 @@
 
     <div
         class="alert-danger alert w-50"
-        *ngIf="loginAuth.invalidCredentials"
+        *ngIf="loginService.invalidCredentials"
     >
         Invalid credentials- try agian!
     </div>
